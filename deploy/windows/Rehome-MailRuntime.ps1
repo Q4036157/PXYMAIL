@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param([string]$SourceRoot='D:\pxy-runtime\Mail',[string]$DestinationRoot='E:\pxy-runtime\Mail',[string]$OwnerSid)
 $ErrorActionPreference='Stop'
 $SourceRoot=[IO.Path]::GetFullPath($SourceRoot).TrimEnd('\')
@@ -95,7 +95,7 @@ try {
  if($app.Path -ne (Join-Path $DestinationRoot 'core\billionmail.exe')){throw 'The running executable is not on E drive.'}
  $report.executable=$app.Path;$report.data_directory=$newDataDir
  $report.stage='retiring-d-runtime';Save-Report
- [IO.File]::WriteAllText((Join-Path $SourceRoot '已迁移到E盘.txt'),"当前运行目录：E:\pxy-runtime\Mail。此目录仅为迁移前备份，不再启动。`r`n源码和 BAT：D:\x1\x2\Mail。",(New-Object Text.UTF8Encoding($false)))
+ [IO.File]::WriteAllText((Join-Path $SourceRoot '已迁移到E盘.txt'),"当前运行目录：E:\pxy-runtime\Mail。此目录仅为迁移前备份，不再启动。`r`n源码和 BAT：D:\x1\x2\PXYMAIL。",(New-Object Text.UTF8Encoding($false)))
  Move-Item -LiteralPath $SourceRoot -Destination $retired
  $report.status='ok';$report.stage='complete';$report.completed=(Get-Date -Format o);Save-Report
  Copy-Item -LiteralPath $reportPath -Destination (Join-Path $DestinationRoot 'runtime-migration-result.json')
