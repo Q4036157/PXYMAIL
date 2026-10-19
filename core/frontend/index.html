@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="referer" content="never" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script>
+			const mailBase = location.pathname.startsWith('/apps/mail/') ? '/apps/mail/' : '/'
+			const base = document.createElement('base')
+			base.href = mailBase
+			document.head.appendChild(base)
+		</script>
+		<link rel="shortcut icon" href="pxy-brand-theme.svg" type="image/svg+xml" />
+		<meta name="naive-ui-style" />
+		<title>PXYMail</title>
+	</head>
+	<body>
+		<div id="mail-loading" role="status" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#f4f7fa;color:#258941;font-size:16px;z-index:9999">正在打开PXYMail，请稍候…</div>
+		<div id="root"></div>
+	</body>
+</html>
