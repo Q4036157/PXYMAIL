@@ -14,6 +14,16 @@ $redisRoot = Join-Path $RuntimeRoot 'redis'
 $logsRoot = Join-Path $RuntimeRoot 'logs'
 $exePath = Join-Path $coreRoot 'billionmail.exe'
 $url = 'http://127.0.0.1:3040'
+if ($Action -eq 'Start') {
+    foreach ($required in @($configPath, $exePath, (Join-Path $postgresData 'PG_VERSION'))) {
+        if (!(Test-Path -LiteralPath $required -PathType Leaf)) {
+            throw "Existing Mail runtime is incomplete: $required. Start does not initialize a new workspace."
+        }
+    }
+}
+if ($Action -eq 'Deploy' -and !(Test-Path -LiteralPath (Join-Path $sourceRoot 'core\main.go'))) {
+    throw 'Deploy requires the source repository entry; the installed runtime copy is for Start/Stop/Status only.'
+}
 $pgCommand = Get-Command initdb.exe -ErrorAction SilentlyContinue
 $pgBin = if ($pgCommand) { Split-Path $pgCommand.Source } else { 'C:\Program Files\PostgreSQL\16\bin' }
 $redisCommand = Get-Command redis-server.exe -ErrorAction SilentlyContinue
